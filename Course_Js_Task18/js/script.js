@@ -1,30 +1,40 @@
 "use strict";
 
-let padString = function (str, num, sym, bool) {
+const padString = function (str, lengthNumber = 1, symb = "*", side = true) {
 
-  if (str === undefined) {
-    return 'Some Error str';
+  if (typeof str !== "string") {
+    throw new Error("str is not in string");
   }
-  if (num === undefined) {
-    return 'Some Error num';
+  if (typeof lengthNumber !== "number") {
+    throw new Error("str is not in string");
   }
-  if (sym === undefined) {
-    return 'Some Error sym';
+  
+  if (str.length === lengthNumber) { 
+    return str;
   }
-  if (bool === undefined) {
-    return 'Some Error bool';
+ const result = str;
+  if (str.length > lengthNumber) {
+    return result.substring(0, lengthNumber);
   }
-  if (bool === false) {
-    return str.toString().padStart(num, sym);
+
+
+  if (typeof symb !== "string") {
+    throw new Error("str is not in string")
   }
-  if (bool === true) {
-    return str.toString().padEnd(num, sym);
+  if (symb.length > 1) {
+    throw new Error("str is not in string");
   }
-  if (str.lenght < num) {
-    return;
+ 
+  if (typeof side !== "boolean") {
+    throw new Error("str is not in string");
   }
+
+  const symbols = symb.repeat(lengthNumber - str.length);
+
+  return side ? str + symbols : symbols + str;
+
+
 };
-
-console.log(padString("hello", 6, '*', false));
-console.log(padString("hello", 8, '*', true));
-console.log(padString("hello".slice(0, -3), 2, " ", false));
+console.log(padString("hello", 8, "*", true));
+console.log(padString("hello", 6, "*", false));
+console.log(padString("hello", 2));
